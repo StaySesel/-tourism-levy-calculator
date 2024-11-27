@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tourism Levy Calculator - Seychelles</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Tourism Environmental Sustainability Levy Calculator</h1>
+        
+        <div class="calculator-form">
+            <div class="form-group">
+                <label for="establishmentName">Establishment Name*</label>
+                <input type="text" id="establishmentName" required placeholder="Enter establishment name">
+            </div>
+
+            <div class="form-group">
+                <label for="tradingName">Trading Name</label>
+                <input type="text" id="tradingName" placeholder="Enter trading name">
+            </div>
+
+            <div class="form-group">
+                <label for="tin">TIN (9 digits)</label>
+                <input type="text" id="tin" pattern="\d{9}" placeholder="Enter TIN number">
+            </div>
+
+            <div class="form-group">
+                <label>Establishment Type*</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="small" name="establishmentType" value="small">
+                        <label for="small">Small (1-24 rooms) - SCR 25 per person/night</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="medium" name="establishmentType" value="medium">
+                        <label for="medium">Medium (25-50 rooms) - SCR 75 per person/night</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="large" name="establishmentType" value="large">
+                        <label for="large">Large (50+ rooms)/Yacht/Island Resort - SCR 100 per person/night</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="nights">Number of Nights*</label>
+                <input type="number" id="nights" min="1" required placeholder="Enter number of nights">
+            </div>
+
+            <div class="form-group">
+                <label for="totalGuests">Total Number of Guests*</label>
+                <input type="number" id="totalGuests" min="1" required placeholder="Enter total number of guests">
+            </div>
+
+            <div class="form-group">
+                <label for="exemptedGuests">Number of Exempted Guests</label>
+                <input type="number" id="exemptedGuests" min="0" placeholder="Enter number of exempted guests">
+                <small>Exempted: Seychelles citizens, residents, airline/yacht crew, children under 12</small>
+            </div>
+
+            <button id="calculateButton">Calculate Levy</button>
+        </div>
+
+        <div id="result" class="result hidden">
+            <h2>Calculation Result</h2>
+            <div id="calculationResult"></div>
+            <button id="saveButton">Save Calculation</button>
+        </div>
+
+        <div id="history" class="history">
+            <h2>Calculation History</h2>
+            <div id="calculationHistory"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
