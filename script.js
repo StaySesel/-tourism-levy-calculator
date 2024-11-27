@@ -186,3 +186,36 @@ function exportToPDF() {
     // Save the PDF
     doc.save(`tourism-levy-return-${currentMonth}.pdf`);
 }
+function exportToPDF() {
+    // Create new PDF document
+    const doc = new jsPDF();
+    const currentMonth = document.getElementById('exportMonth').value || new Date().toISOString().slice(0, 7);
+
+    try {
+        // Add content to PDF
+        doc.setFontSize(16);
+        doc.text('Tourism Environment Sustainability Levy', 20, 20);
+        
+        // Add establishment details
+        doc.setFontSize(12);
+        const establishmentName = document.getElementById('establishmentName').value;
+        doc.text(`Establishment: ${establishmentName}`, 20, 40);
+        
+        // Add levy calculations
+        doc.text(`Month: ${currentMonth}`, 20, 50);
+        doc.text(`Total Levy: SCR ${calculateMonthlyTotal(currentMonth)}`, 20, 60);
+        
+        // Save the PDF
+        doc.save(`tourism-levy-${currentMonth}.pdf`);
+    } catch (error) {
+        alert('Error creating PDF. Please try again.');
+        console.error('PDF Error:', error);
+    }
+}
+
+function calculateMonthlyTotal(month) {
+    return calculations
+        .filter(calc => calc.date.startsWith(month))
+        .reduce((sum, calc) => sum + calc.totalLevy, 0)
+        .toFixed(2);
+}
