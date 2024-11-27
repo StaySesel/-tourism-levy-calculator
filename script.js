@@ -134,3 +134,55 @@ saveButton.addEventListener('click', saveCalculation);
 
 // Initialize history on page load
 updateHistory();
+// Add jsPDF library in index.html first
+function exportToPDF() {
+    const doc = new jsPDF();
+    const currentMonth = document.getElementById('exportMonth').value;
+    const monthlyCalculations = calculations.filter(calc => 
+        calc.date.startsWith(currentMonth)
+    );
+
+    // Add form header
+    doc.setFontSize(16);
+    doc.text('Tourism Environment Sustainability Levy', 105, 20, { align: 'center' });
+    doc.setFontSize(12);
+    doc.text('Tourism Environmental Sustainability Levy Regulations, 2023', 105, 30, { align: 'center' });
+
+    // Add form details
+    doc.setFontSize(10);
+    doc.text(`Month/Year: ${new Date(currentMonth).toLocaleDateString('default', { month: 'long', year: 'numeric' })}`, 20, 45);
+    doc.text(`Taxpayer's Name: ${document.getElementById('establishmentName').value}`, 20, 55);
+    doc.text(`Trading Name: ${document.getElementById('tradingName').value}`, 20, 65);
+    doc.text(`TIN: ${document.getElementById('tin').value}`, 20, 75);
+
+    // Add establishment type checkboxes
+    doc.text('Classification of accommodation establishment:', 20, 90);
+    doc.rect(20, 95, 5, 5);
+    doc.text('Small', 30, 99);
+    doc.rect(70, 95, 5, 5);
+    doc.text('Medium', 80, 99);
+    doc.rect(120, 95, 5, 5);
+    doc.text('Large/Yacht/Island Resort', 130, 99);
+
+    // Add statistics
+    doc.text(`Total number of guests: ${monthlyCalculations.reduce((sum, calc) => sum + parseInt(calc.totalGuests), 0)}`, 20, 115);
+    doc.text(`Number of guests exempted: ${monthlyCalculations.reduce((sum, calc) => sum + parseInt(calc.exemptedGuests || 0), 0)}`, 20, 125);
+    doc.text(`Total nights: ${monthlyCalculations.reduce((sum, calc) => sum + parseInt(calc.nights), 0)}`, 20, 135);
+    doc.text(`Total Levy Collected: SCR ${monthlyCalculations.reduce((sum, calc) => sum + calc.totalLevy, 0).toFixed(2)}`, 20, 145);
+
+    // Add declaration
+    doc.text('DECLARATIONS', 20, 165);
+    doc.text('I _________________ declare that the particulars provided on this form are true and correct.', 20, 175);
+    doc.text('Signature: _________________', 20, 190);
+    doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 200);
+
+    // Add notes
+    doc.setFontSize(8);
+    doc.text('Notes:', 20, 220);
+    doc.text('Small accommodation establishments means-having rooms between 1-24.', 20, 230);
+    doc.text('Medium accommodation establishments means-having rooms between 25-50.', 20, 235);
+    doc.text('Large accommodation establishments means- having rooms more than 50.', 20, 240);
+
+    // Save the PDF
+    doc.save(`tourism-levy-return-${currentMonth}.pdf`);
+}
