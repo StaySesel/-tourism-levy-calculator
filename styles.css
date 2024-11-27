@@ -118,7 +118,44 @@ button:hover {
     .container {
         padding: 15px;
     }
+.export-controls {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f8fafc;
+    border-radius: 5px;
+    border: 1px solid #e2e8f0;
+}
 
+.export-controls h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.export-controls .form-group {
+    margin-bottom: 15px;
+}
+
+#exportPDFButton {
+    background-color: #22c55e;
+    margin-right: 10px;
+}
+
+#exportFormButton {
+    background-color: #3b82f6;
+}
+
+.export-controls button {
+    display: inline-block;
+    width: auto;
+    margin-right: 10px;
+}
+
+input[type="month"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
     h1 {
         font-size: 24px;
     }
